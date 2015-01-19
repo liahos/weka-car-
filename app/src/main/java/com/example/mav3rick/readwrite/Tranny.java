@@ -84,7 +84,7 @@ public class Tranny {
         return flag;
     }
 
-    public String classify(String fname) {
+    public String classify(String fname, String [] filename) {
         
         //Loads the stored model of the classifier
         ObjectInputStream in = null;
