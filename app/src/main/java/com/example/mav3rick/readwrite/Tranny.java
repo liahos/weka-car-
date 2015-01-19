@@ -102,70 +102,26 @@ public class Tranny {
         }
 
        
-        //Setting of attributes 
-        List attributelist = new ArrayList(7);
+     
 
-        List values = new ArrayList(4);
-        values.add("vhigh");
-        values.add("high");
-        values.add("med");
-        values.add("low");
-        Attribute attribute1 = new Attribute("buying", values);
-        attributelist.add(attribute1);
-
-        Attribute attribute2 = new Attribute("maint", values);
-        attributelist.add(attribute2);
-
-
-        values = new ArrayList(4);
-        values.add("2");
-        values.add("3");
-        values.add("4");
-        values.add("5more");
-        Attribute attribute3 = new Attribute("doors", values);
-        attributelist.add(attribute3);
-
-        values = new ArrayList(3);
-        values.add("2");
-        values.add("4");
-        values.add("more");
-        Attribute attribute4 = new Attribute("persons", values);
-        attributelist.add(attribute4);
-
-        values = new ArrayList(3);
-        values.add("small");
-        values.add("med");
-        values.add("big");
-        Attribute attribute5 = new Attribute("lugboot", values);
-        attributelist.add(attribute5);
-
-        values = new ArrayList(3);
-        values.add("low");
-        values.add("med");
-        values.add("high");
-        Attribute attribute6 = new Attribute("safety", values);
-        attributelist.add(attribute6);
-
-        values = new ArrayList(4);
-        values.add("unacc");
-        values.add("acc");
-        values.add("good");
-        values.add("vgood");
-        Attribute attribute7 = new Attribute("class", values);
-        attributelist.add(attribute7);
-
-        String text = null;
+        String text;
 
         //Reading of test dataset and its classification
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("/sdcard/"+fname+".arff"));
-            String line;
+            ArffLoader arff= null;
 
-            text = "";
+            BufferedReader read = new BufferedReader(new FileReader("/sdcard/"+fname+".arff"));
 
             try {
-                while((text = reader.readLine())!=null) {
-                    instances = new Instances("Test relation", (java.util.ArrayList<Attribute>) attributelist, 1);
+                while((text = read.readLine())!=null) {
+
+                    arff = new ArffLoader();
+                    arff.setFile(new File("/sdcard/"+filename[0]+".arff"));
+                    
+                    instances = arff.getStructure();
+
+
+                    
                     instances.setClassIndex(instances.numAttributes()-1);
 
                     DenseInstance instance = new DenseInstance(7);
@@ -173,12 +129,13 @@ public class Tranny {
 
                     String [] stringvalues = text.split(",");
 
-                    instance.setValue(attribute1, stringvalues[0]);
-                    instance.setValue(attribute2, stringvalues[1]);
-                    instance.setValue(attribute3, stringvalues[2]);
-                    instance.setValue(attribute4, stringvalues[3]);
-                    instance.setValue(attribute5, stringvalues[4]);
-                    instance.setValue(attribute6, stringvalues[5]);
+                    instance.setValue(0, stringvalues[0]);
+                    instance.setValue(1, stringvalues[1]);
+                    instance.setValue(2, stringvalues[2]);
+                    instance.setValue(3, stringvalues[3]);
+                    instance.setValue(4, stringvalues[4]);
+                    instance.setValue(5, stringvalues[5]);
+
                     instances.add(instance);
 
 
@@ -195,11 +152,7 @@ public class Tranny {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
