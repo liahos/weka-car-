@@ -26,6 +26,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fname = (EditText) findViewById(R.id.fname);
+        final String[] filename = new String[1];
 
         fnameread = (EditText) findViewById(R.id.fnameread);
         build = (Button) findViewById(R.id.bbuild);
@@ -42,10 +43,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View arg0) {
 
-                String filename = fname.getText().toString();
+                filename[0] = fname.getText().toString();
 
                 Tranny t1 = new Tranny();
-                int flag = t1.build(filename);
+                int flag = t1.build(filename[0]);
 
                 if (flag == 0) {
                     Toast.makeText(getApplicationContext(),"Classifier built :)", Toast.LENGTH_SHORT).show();
@@ -65,13 +66,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
             public void onClick(View view) {
                 String readfilename = fnameread.getText().toString();
                 Tranny t1 = new Tranny();
-                String out = t1.classify(readfilename);
-                /*int flag = t1.classify(readfilename);
-                if (flag == 0) {
-                    Toast.makeText(getApplicationContext(), "Classified :)", Toast.LENGTH_SHORT) .show();
-                }else {
-                    Toast.makeText(getApplicationContext(), "Not Classified :(", Toast.LENGTH_SHORT) .show();
-                }*/
+                String out = t1.classify(readfilename, filename);
+
                 filecon.setText(out);
             }
         });
