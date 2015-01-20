@@ -42,7 +42,7 @@ public class Tranny {
 
     Instances instances;
     //FilteredClassifier classifier = new FilteredClassifier();
-    NaiveBayes classifier = new NaiveBayes();
+    AdaBoostM1 classifier = new AdaBoostM1();
     public Tranny() {
 
     }
@@ -107,7 +107,7 @@ public class Tranny {
             in = new ObjectInputStream(new FileInputStream("/sdcard/model.txt"));
             try {
                 Object tmp = in.readObject();
-                classifier = (NaiveBayes) tmp;
+                classifier = (AdaBoostM1) tmp;
                 in.close();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
