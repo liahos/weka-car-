@@ -42,7 +42,7 @@ public class Tranny {
 
     Instances instances;
     //FilteredClassifier classifier = new FilteredClassifier();
-    AdaBoostM1 classifier = new AdaBoostM1();
+    DecisionStump classifier = new DecisionStump();
     public Tranny() {
 
     }
@@ -107,7 +107,7 @@ public class Tranny {
             in = new ObjectInputStream(new FileInputStream("/sdcard/model.txt"));
             try {
                 Object tmp = in.readObject();
-                classifier = (AdaBoostM1) tmp;
+                classifier = (DecisionStump) tmp;
                 in.close();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
