@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener{
     EditText fname, fnameread;
-    Button build, classify;
+    Button build, classify, eval;
     //ImageView imageView;
     TextView filecon, textView;
     int counter = 0;
@@ -31,10 +31,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         fnameread = (EditText) findViewById(R.id.fnameread);
         build = (Button) findViewById(R.id.bbuild);
         classify = (Button) findViewById(R.id.beval);
+        eval = (Button) findViewById(R.id.eval);
         filecon = (TextView) findViewById(R.id.filecon);
-
-        //imageView = (ImageView) findViewById(R.id.imageView);
-
         textView = (TextView) findViewById(R.id.textView);
 
         textView.setOnClickListener(this);
@@ -67,10 +65,20 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 String readfilename = fnameread.getText().toString();
                 Tranny t1 = new Tranny();
                 String out = t1.classify(readfilename, filename);
-
                 filecon.setText(out);
             }
         });
+
+        eval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String readfilename = fnameread.getText().toString();
+                Tranny t1 = new Tranny();
+                String out = t1.evaluate(readfilename);
+                filecon.setText(out);
+            }
+        });
+
     }
 
 
